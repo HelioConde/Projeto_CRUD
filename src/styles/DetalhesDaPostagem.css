@@ -1,0 +1,85 @@
+.listInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.listInfo div {
+    margin: 20px 0;
+}
+
+.listButton {
+    display: flex;
+}
+
+.listButton button {
+    background: none;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px 40px;
+    cursor: pointer;
+    font-weight: bolder;
+    width: 267px;
+    margin: 20px;
+}
+
+.listButton2 {
+    background: none;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px 40px;
+    cursor: pointer;
+    font-weight: bolder;
+    width: 170px;
+    margin: 20px;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 500;
+}
+
+.boxAlert {
+    color: white;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+    top: 20%;
+    bottom: 20%;
+    /* right: 50%; */
+    left: 23%;
+    justify-content: center;    
+}
+
+.boxAlert button {
+    background: none;
+    border-radius: 10px;
+    padding: 20px 40px;
+    cursor: pointer;
+    font-weight: bolder;
+    width: 170px;
+    margin: 20px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.boxAlert button:nth-child(1) {
+    border: 2px solid rgba(146, 1, 1, 0.5);
+}
+
+.boxAlert button:nth-child(2) {
+    border: 2px solid rgba(0, 255, 64, 0.3);
+}
+
+@media (max-width: 768px) {
+    .listInfo {
+        width: 99%;
+    }
+
+}

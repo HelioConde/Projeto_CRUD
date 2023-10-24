@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html,
+#root {
+    margin: 0;
+    padding: 0;
+    height: 99%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #E4E4E4;
+}
+
+.header,
+.body,
+.footer {
+    display: flex;
+}
+
+#root {
+    padding: 0.5%;
+}
+
+.listMain2 {
+    display: flex;
+    flex-direction: column;
+    height: 96%;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 2%;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.listMain2 form {
+    margin-top: 20px;
+    width: 500px;
+}
+
+.listMain2 form div {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.listMain2 form div input {
+    padding: 10px 0px;
+    border: 2px solid #DBDFEB;
+    border-radius: 10px;
+    margin: 0;
+    width: 100%;
+}
+
+.listMain2 form div textarea {
+    padding: 10px 0px;
+    border: 2px solid #DBDFEB;
+    border-radius: 10px;
+    margin: 0;
+    width: 100%;
+}
+
+.listMain2 form button {
+    background: none;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px 40px;
+    cursor: pointer;
+    font-weight: bolder;
+    width: 60%;
+    margin: auto;
+}
+
+#root {
+    padding: 0.5%;
+}
+
+@media (max-width: 768px) {
+    .listMain2 form {
+        width: 100%;
+    }
+
+    .listMain2 form div input {
+        width: 99%;
+    }
+}
