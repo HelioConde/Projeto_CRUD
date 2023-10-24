@@ -7,6 +7,9 @@ Bem-vindo ao repositório do meu projeto de gerenciamento de postagens em ReactJ
 O projeto foi desenvolvido com base no seguinte protótipo:
 https://cback.pt/vaga/index.html
 
+## Informações importantes
+Para utilizar este projeto, é necessário fornecer as chaves apiAuthorizationToken e userToken no arquivo localizado em src/pages/apiConfig.jsx:
+
 ## Tecnologias e Bibliotecas
 
 - **React**: Biblioteca JavaScript para criação de interfaces interativas.
