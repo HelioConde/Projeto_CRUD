@@ -1,4 +1,16 @@
-# Gerenciamento de Postagens - ReactJS
+# Gerenciador de postagens — CRUD em React
+
+**Projeto de estudo para listar, criar, editar e remover postagens consumindo uma API REST.**
+
+![React](https://img.shields.io/badge/React-aplicação-149ECA?logo=react&logoColor=white) ![Status](https://img.shields.io/badge/status-projeto%20de%20estudo-64748b)
+
+## Em resumo
+
+Interface React com navegação, busca, formulários e integração HTTP via Axios. A aplicação depende de uma API externa e do modelo de autenticação adotado no exercício.
+
+> **Segurança:** os tokens mencionados na documentação histórica abaixo são sensíveis. Use credenciais de desenvolvimento, evite commits com chaves e não publique tokens administrativos em um bundle de navegador. Revise o fluxo de autenticação antes de um deploy público.
+
+---
 
 Bem-vindo ao repositório do meu projeto de gerenciamento de postagens em ReactJS. Este projeto foi desenvolvido como parte de um desafio e tem como objetivo criar um aplicativo para gerenciar postagens (CRUD) utilizando ReactJS e uma API REST.
 
