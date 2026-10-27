@@ -4,6 +4,8 @@ import { formatDate, statusText } from '../lib/format.js';
 
 export default function PostTable({ posts }) {
   return (
+    <>
+      <p className="table-scroll-hint">Deslize a tabela para ver status, data e ações <span aria-hidden="true">→</span></p>
     <div className="table-scroll" role="region" tabIndex={0} aria-label="Tabela de postagens; pode rolar horizontalmente">
       <table className="post-table">
         <thead><tr><th scope="col">Conteúdo</th><th scope="col">Status</th><th scope="col">Atualizado em</th><th scope="col" className="actions-head">Ações</th></tr></thead>
@@ -26,5 +28,6 @@ export default function PostTable({ posts }) {
         </tbody>
       </table>
     </div>
+    </>
   );
 }

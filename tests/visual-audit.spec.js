@@ -89,6 +89,14 @@ test.describe('Capturas automáticas e auditoria visual', () => {
         await page.goto('./#' + route.hash, { waitUntil: 'networkidle' });
         await expect(page.getByRole('heading', { name: route.heading, exact: true })).toBeVisible();
         if (route.dialog) await expect(page.getByRole('dialog')).toBeVisible();
+        if (size.width <= 760 && route.name === 'dashboard') {
+          await expect(page.getByText('Deslize a tabela para ver status, data e ações')).toBeVisible();
+        }
+        if (size.width <= 760 && route.name === 'cadastro') {
+          const basic = await page.getByRole('heading', { name: 'Informações básicas' }).boundingBox();
+          const publish = await page.getByRole('heading', { name: 'Publicação' }).boundingBox();
+          expect(publish.y, 'No celular, a publicação deve aparecer depois do formulário').toBeGreaterThan(basic.y);
+        }
         if (route.name === 'dashboard') {
           await expect(page.getByRole('link', { name: 'Como organizar um calendário editorial', exact: true })).toBeVisible();
         }

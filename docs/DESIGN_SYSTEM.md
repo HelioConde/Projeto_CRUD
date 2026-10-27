@@ -42,3 +42,8 @@
 - Leitura e operação em celular de 320px, 760px, desktop 1280px e 200% de zoom.
 - Mensagens claras para ausência de dados, carregamento, API indisponível e falhas de salvamento.
 - Avaliação automática com axe é complementar à revisão manual de acessibilidade.
+
+## Ajustes derivados das capturas reais (27/10/2026)
+- Tabela móvel mostra um aviso explícito sobre rolagem horizontal.
+- No formulário móvel, a seção Publicação/Salvar vem depois dos campos.
+- Indicador do modo de demonstração apresenta o texto curto 'Demo' em telas estreitas.
