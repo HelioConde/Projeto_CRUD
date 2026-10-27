@@ -101,3 +101,18 @@ Os testes cobrem fluxos CRUD, confirmação/cancelamento de exclusão, pesquisa,
 O projeto começou como desafio técnico de React + API externa; esta versão mantém os caminhos e campos principais e prioriza uma demonstração independente da API histórica.
 
 **Desenvolvido por [Hélio Conde](https://github.com/HelioConde).**
+
+## Capturas automáticas e auditoria visual
+
+O Playwright fotografa **cinco telas em oito resoluções (40 capturas completas)**:
+320×640, 375×812, 390×844, 768×1024, 1024×768, 1280×800, 1600×900 e 1920×1080.
+
+```bash
+npm run test:visual
+npm run qa:summary
+```
+
+A auditoria registra exceções JavaScript, mensagens de console, requisições com erro, largura real da página e controles cortados. A tabela possui rolagem horizontal intencional e não conta como overflow da página. Os relatórios (`summary.md`, `summary.json`) e fotos ficam em `test-results/visual-audit/`, publicados nos artefatos do CI.
+
+O workflow de Pages publica o build Vite, verifica se o HTML online aponta para os assets compilados e executa um smoke test com capturas reais da versão publicada em desktop e celular. Fonte: `.github/workflows/pages.yml`.
+
