@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 test('a demonstração apresenta postagens, busca, filtros e paginação', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Postagens' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Postagens', exact: true })).toBeVisible();
   await expect(page.getByText('12 postagens')).toBeVisible();
   await page.getByRole('button', { name: 'Próxima' }).click();
   await expect(page.getByText('Página 2 de 2')).toBeVisible();
@@ -20,7 +20,7 @@ test('a demonstração apresenta postagens, busca, filtros e paginação', async
 test('criar, visualizar, editar e excluir pede confirmação', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Nova postagem' }).first().click();
-  await page.getByRole('textbox', { name: 'Título' }).fill('Postagem criada pelo Playwright');
+  await page.getByRole('textbox', { name: 'Título', exact: true }).fill('Postagem criada pelo Playwright');
   await page.getByRole('textbox', { name: 'Tags' }).fill('Teste, Automação');
   await page.getByRole('textbox', { name: 'Texto principal' }).fill('Conteúdo de teste.');
   await page.getByRole('button', { name: 'Pré-visualizar' }).click();
@@ -31,7 +31,7 @@ test('criar, visualizar, editar e excluir pede confirmação', async ({ page }) 
   await page.getByRole('link', { name: 'Postagem criada pelo Playwright' }).click();
   await expect(page.getByRole('heading', { name: 'Postagem criada pelo Playwright' })).toBeVisible();
   await page.getByRole('link', { name: 'Editar' }).click();
-  await page.getByRole('textbox', { name: 'Título' }).fill('Postagem revisada pelo Playwright');
+  await page.getByRole('textbox', { name: 'Título', exact: true }).fill('Postagem revisada pelo Playwright');
   await page.getByRole('button', { name: 'Salvar postagem' }).click();
   await expect(page.getByRole('link', { name: 'Postagem revisada pelo Playwright' })).toBeVisible();
   await page.getByRole('link', { name: 'Postagem revisada pelo Playwright' }).click();
@@ -58,13 +58,13 @@ test('edição inválida informa erros e bloqueia saída com alterações penden
   await page.goto('/#/cadastro');
   await page.getByRole('button', { name: 'Salvar postagem' }).click();
   await expect(page.getByText('Informe um título para continuar.')).toBeVisible();
-  await page.getByRole('textbox', { name: 'Título' }).fill('Rascunho não salvo');
+  await page.getByRole('textbox', { name: 'Título', exact: true }).fill('Rascunho não salvo');
   page.once('dialog', async (dialog) => { expect(dialog.type()).toBe('confirm'); await dialog.dismiss(); });
-  await page.getByRole('link', { name: 'Postagens' }).click();
+  await page.getByRole('link', { name: 'Postagens', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Nova postagem' })).toBeVisible();
   page.once('dialog', async (dialog) => { await dialog.accept(); });
-  await page.getByRole('link', { name: 'Postagens' }).click();
-  await expect(page.getByRole('heading', { name: 'Postagens' })).toBeVisible();
+  await page.getByRole('link', { name: 'Postagens', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Postagens', exact: true })).toBeVisible();
 });
 
 test('falha local exibe recuperação sem apagar silenciosamente os dados', async ({ page }) => {
@@ -81,7 +81,7 @@ test('falha local exibe recuperação sem apagar silenciosamente os dados', asyn
 
 test('interface desktop sem scroll horizontal; mobile com tabela operável e sem cortes globais', async ({ page }, testInfo) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Postagens' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Postagens', exact: true })).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
   expect(overflow).toBe(false);
   await page.screenshot({ path: 'test-results/dashboard-' + testInfo.project.name + '.png', fullPage: true });
@@ -91,7 +91,7 @@ test('interface desktop sem scroll horizontal; mobile com tabela operável e sem
 
 test('a página inicial não tem violações WCAG 2 A e AA graves ou críticas', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Postagens' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Postagens', exact: true })).toBeVisible();
   const audit = await new AxeBuilder({ page }).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
   expect(audit.violations.filter((item) => ['serious','critical'].includes(item.impact))).toEqual([]);
 });
@@ -100,7 +100,7 @@ test('zoom de 200% mantém controles utilizáveis no desktop', async ({ page }, 
   test.skip(testInfo.project.name === 'mobile', '200% em desktop equivale ao breakpoint responsivo');
   await page.goto('/');
   await page.evaluate(() => { document.body.style.zoom = '200%'; });
-  await expect(page.getByRole('heading', { name: 'Postagens' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Postagens', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Nova postagem' }).first()).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
 });
