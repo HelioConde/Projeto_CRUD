@@ -47,3 +47,13 @@
 - Tabela móvel mostra um aviso explícito sobre rolagem horizontal.
 - No formulário móvel, a seção Publicação/Salvar vem depois dos campos.
 - Indicador do modo de demonstração apresenta o texto curto 'Demo' em telas estreitas.
+
+## Ajuste de altura do desktop (27/10/2026)
+
+No desktop de 900px de largura ou mais e com viewport CSS a partir de 540px de altura, a listagem principal cabe em **uma tela útil do navegador**. A barra do navegador e a barra de tarefas reduzem o viewport em relação à resolução física do monitor.
+
+- Cabeçalho, cartões de resumo, filtros e paginação permanecem visíveis.
+- O elemento `.table-scroll` possui rolagem vertical independente e cabeçalho da tabela fixo (sticky).
+- O `.main-container`, o dashboard e o painel usam flexbox com `min-height: 0` e alturas derivadas de `100dvh`, sem `calc` estático para o tamanho da tabela.
+- Em celulares, telas curtas demais e zoom de 200% a página **pode rolar normalmente**, para não cortar informações nem afetar acessibilidade.
+- Testes Playwright próprios verificam o viewport de 1365×645 semelhante a uma janela de 1600×900 com barras visíveis, além de outras larguras e alturas.

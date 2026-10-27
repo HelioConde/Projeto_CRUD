@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createHashRouter, NavLink, Outlet, Link, useOutletContext } from 'react-router-dom';
+import { createHashRouter, NavLink, Outlet, Link, useLocation, useOutletContext } from 'react-router-dom';
 import { BookOpenText, CircleHelp, LayoutDashboard, Plus, RotateCcw, X } from 'lucide-react';
 import { isDemo } from './lib/postsRepository.js';
 import PostsPage from './pages/PostsPage.jsx';
@@ -7,10 +7,11 @@ import PostEditorPage from './pages/PostEditorPage.jsx';
 import PostDetailsPage from './pages/PostDetailsPage.jsx';
 
 function Shell() {
+  const isDashboard = useLocation().pathname === '/';
   const [notice, setNotice] = useState(null);
   function notify(message, type = 'success') { setNotice({ message, type }); }
   return (
-    <div className="app-shell">
+    <div className={isDashboard ? 'app-shell dashboard-shell' : 'app-shell'}>
       <a className="skip-link" href="#conteudo">Ir para o conteúdo</a>
       <header className="topbar">
         <Link className="brand" to="/">
