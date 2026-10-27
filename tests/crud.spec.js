@@ -114,3 +114,22 @@ test('diálogo de exclusão recebe foco e aceita Escape', async ({ page }) => {
   await expect(dialog).not.toBeVisible();
   await expect(page.getByRole('heading', { name: 'Como organizar um calendário editorial', exact: true })).toBeVisible();
 });
+
+
+test('dados locais malformados ou duplicados exigem restauração confirmada', async ({ page }) => {
+  await page.goto('/');
+  await page.evaluate(() => localStorage.setItem('postflow:posts:v2', JSON.stringify([
+    { id:'1', title:'Postagem válida', status:'draft' },
+    { id:'1', title:'Postagem duplicada', status:'draft' }
+  ])));
+  await page.reload();
+  await expect(page.getByRole('alert')).toContainText('dados locais estão inválidos');
+  await expect(page.getByRole('button', { name:'Restaurar exemplos' })).toBeVisible();
+  await page.getByRole('button', { name:'Restaurar exemplos' }).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.getByRole('dialog').getByRole('button', { name:'Cancelar' }).click();
+  await expect(page.getByRole('alert')).toContainText('inválidos');
+  await page.getByRole('button', { name:'Restaurar exemplos' }).click();
+  await page.getByRole('dialog').getByRole('button', { name:'Restaurar dados' }).click();
+  await expect(page.getByText('12 postagens')).toBeVisible();
+});

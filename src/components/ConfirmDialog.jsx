@@ -32,7 +32,7 @@ export default function ConfirmDialog({ open, title, description, confirmLabel =
       <p id="dialog-description">{description}</p>
       <div className="dialog-actions">
         <button ref={cancelRef} type="button" className="btn btn-secondary" disabled={busy} onClick={onCancel}>Cancelar</button>
-        <button type="button" className="btn btn-danger" disabled={busy} onClick={confirm}>{busy ? 'Excluindo…' : confirmLabel}</button>
+        <button type="button" className="btn btn-danger" disabled={busy} onClick={confirm}>{busy ? 'Processando…' : confirmLabel}</button>
       </div>
     </dialog>
   );

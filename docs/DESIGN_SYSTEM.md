@@ -57,3 +57,6 @@ No desktop de 900px de largura ou mais e com viewport CSS a partir de 540px de a
 - O `.main-container`, o dashboard e o painel usam flexbox com `min-height: 0` e alturas derivadas de `100dvh`, sem `calc` estático para o tamanho da tabela.
 - Em celulares, telas curtas demais e zoom de 200% a página **pode rolar normalmente**, para não cortar informações nem afetar acessibilidade.
 - Testes Playwright próprios verificam o viewport de 1365×645 semelhante a uma janela de 1600×900 com barras visíveis, além de outras larguras e alturas.
+
+## Confiabilidade e feedback
+Diálogos de confirmação apresentam a ação real em andamento como `Processando…`, sem atribuir texto de exclusão a outras operações. O painel permite restaurar exemplos após falha de formato de armazenamento, com cancelamento seguro. Playwright cobre identificação de dados duplicados, confirmação, cancelamento e recuperação.

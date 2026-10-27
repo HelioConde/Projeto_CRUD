@@ -17,3 +17,6 @@ Este frontend é um exemplo didático. No modo padrão, os dados ficam no armaze
 - Manter tokens/chaves somente no servidor, nunca em `VITE_*` nem em `localStorage`.
 
 O demo local não oferece isolamento entre usuários do mesmo navegador e não é uma solução de produção multiusuário.
+
+## Proteção adicional de armazenamento local (outubro de 2026)
+Os dados existentes em `postflow:posts:v2` são verificados antes da renderização: no máximo 500 registros, IDs não repetidos, títulos válidos e tipos reconhecidos. Dados corrompidos não são apagados silenciosamente: a interface apresenta um erro e permite restauração de exemplos mediante confirmação. Não substitui autenticação ou permissões de acesso em um CMS verdadeiro.

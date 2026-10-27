@@ -25,7 +25,24 @@ function readDemo() {
   if (raw === null) return initialPosts.map(cleanPost);
   try {
     const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) throw Error();
+    // Não transformar silenciosamente backups inválidos em registros vazios.
+    // O usuário pode restaurar os exemplos manualmente, com confirmação.
+    if (!Array.isArray(parsed) || parsed.length > 500) throw Error();
+    const ids = new Set();
+    for (const post of parsed) {
+      if (!post || typeof post !== 'object' || Array.isArray(post) ||
+          !['string','number'].includes(typeof post.id) ||
+          typeof post.title !== 'string' || !post.title.trim() || post.title.length > 120 ||
+          !['draft','published'].includes(post.status)) throw Error();
+      const id = String(post.id);
+      if (!id || ids.has(id)) throw Error();
+      ids.add(id);
+      for (const field of ['tags','primary_text','secondary_text','youtube_link','seo_title','seo_tags']) {
+        const value = post[field];
+        if (value !== undefined && typeof value !== 'string' &&
+            !(field === 'tags' && Array.isArray(value) && value.every(tag => typeof tag === 'string'))) throw Error();
+      }
+    }
     return parsed.map(cleanPost);
   } catch {
     throw new Error('Os dados locais estão inválidos. Faça uma cópia antes de redefinir a demonstração.');
