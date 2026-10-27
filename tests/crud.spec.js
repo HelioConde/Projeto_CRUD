@@ -20,7 +20,7 @@ test('a demonstração apresenta postagens, busca, filtros e paginação', async
 test('criar, visualizar, editar e excluir pede confirmação', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Nova postagem' }).first().click();
-  await page.getByRole('textbox', { name: /Título \*/ }).fill('Postagem criada pelo Playwright');
+  await page.getByRole('textbox', { name: 'Título' }).fill('Postagem criada pelo Playwright');
   await page.getByRole('textbox', { name: 'Tags' }).fill('Teste, Automação');
   await page.getByRole('textbox', { name: 'Texto principal' }).fill('Conteúdo de teste.');
   await page.getByRole('button', { name: 'Pré-visualizar' }).click();
@@ -31,7 +31,7 @@ test('criar, visualizar, editar e excluir pede confirmação', async ({ page }) 
   await page.getByRole('link', { name: 'Postagem criada pelo Playwright' }).click();
   await expect(page.getByRole('heading', { name: 'Postagem criada pelo Playwright' })).toBeVisible();
   await page.getByRole('link', { name: 'Editar' }).click();
-  await page.getByRole('textbox', { name: /Título \*/ }).fill('Postagem revisada pelo Playwright');
+  await page.getByRole('textbox', { name: 'Título' }).fill('Postagem revisada pelo Playwright');
   await page.getByRole('button', { name: 'Salvar postagem' }).click();
   await expect(page.getByRole('link', { name: 'Postagem revisada pelo Playwright' })).toBeVisible();
   await page.getByRole('link', { name: 'Postagem revisada pelo Playwright' }).click();
@@ -58,7 +58,7 @@ test('edição inválida informa erros e bloqueia saída com alterações penden
   await page.goto('/#/cadastro');
   await page.getByRole('button', { name: 'Salvar postagem' }).click();
   await expect(page.getByText('Informe um título para continuar.')).toBeVisible();
-  await page.getByRole('textbox', { name: /Título \*/ }).fill('Rascunho não salvo');
+  await page.getByRole('textbox', { name: 'Título' }).fill('Rascunho não salvo');
   page.once('dialog', async (dialog) => { expect(dialog.type()).toBe('confirm'); await dialog.dismiss(); });
   await page.getByRole('link', { name: 'Postagens' }).click();
   await expect(page.getByRole('heading', { name: 'Nova postagem' })).toBeVisible();
