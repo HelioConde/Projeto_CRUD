@@ -15,7 +15,7 @@ test('resposta HTTP 500 exibe erro e a tentativa novamente recupera a listagem',
   await expect(page.getByRole('alert')).toContainText('HTTP 500');
   fail = false;
   await page.getByRole('button', { name:'Tentar novamente' }).click();
-  await expect(page.getByRole('link', { name:record.title })).toBeVisible();
+  await expect(page.getByRole('link', { name:record.title, exact:true })).toBeVisible();
 });
 
 test('falha de conexão exibe mensagem acessível', async ({ page }) => {
@@ -43,5 +43,5 @@ test('a API só recebe DELETE depois da confirmação, e HTTP 403 não é tratad
   expect(deleted).toBe(1);
   await expect(dialog).toBeVisible();
   await dialog.getByRole('button', { name:'Cancelar' }).click();
-  await expect(page.getByRole('heading', { name:record.title })).toBeVisible();
+  await expect(page.getByRole('heading', { name:record.title, exact:true })).toBeVisible();
 });

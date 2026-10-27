@@ -8,7 +8,7 @@ test('a demonstração apresenta postagens, busca, filtros e paginação', async
   await page.getByRole('button', { name: 'Próxima' }).click();
   await expect(page.getByText('Página 2 de 2')).toBeVisible();
   await page.getByRole('searchbox', { name: 'Buscar postagens por título ou tag' }).fill('calendário editorial');
-  await expect(page.getByRole('link', { name: 'Como organizar um calendário editorial' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Como organizar um calendário editorial', exact: true })).toBeVisible();
   await expect(page.getByText('1–1 de 1 postagens')).toBeVisible();
   await page.getByRole('button', { name: 'Limpar busca' }).click();
   await page.getByLabel('Filtrar pelo status').selectOption('draft');
@@ -27,31 +27,31 @@ test('criar, visualizar, editar e excluir pede confirmação', async ({ page }) 
   await expect(page.getByText('Conteúdo de teste.')).toBeVisible();
   await page.getByRole('combobox', { name: 'Status' }).selectOption('published');
   await page.getByRole('button', { name: 'Salvar postagem' }).click();
-  await expect(page.getByRole('link', { name: 'Postagem criada pelo Playwright' })).toBeVisible();
-  await page.getByRole('link', { name: 'Postagem criada pelo Playwright' }).click();
-  await expect(page.getByRole('heading', { name: 'Postagem criada pelo Playwright' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Postagem criada pelo Playwright', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Postagem criada pelo Playwright', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Postagem criada pelo Playwright', exact: true })).toBeVisible();
   await page.getByRole('link', { name: 'Editar' }).click();
   await page.getByRole('textbox', { name: 'Título', exact: true }).fill('Postagem revisada pelo Playwright');
   await page.getByRole('button', { name: 'Salvar postagem' }).click();
-  await expect(page.getByRole('link', { name: 'Postagem revisada pelo Playwright' })).toBeVisible();
-  await page.getByRole('link', { name: 'Postagem revisada pelo Playwright' }).click();
+  await expect(page.getByRole('link', { name: 'Postagem revisada pelo Playwright', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Postagem revisada pelo Playwright', exact: true }).click();
   await page.getByRole('button', { name: 'Excluir' }).click();
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
   await dialog.getByRole('button', { name: 'Cancelar' }).click();
-  await expect(page.getByRole('heading', { name: 'Postagem revisada pelo Playwright' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Postagem revisada pelo Playwright', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Excluir' }).click();
   await dialog.getByRole('button', { name: 'Excluir postagem' }).click();
-  await expect(page.getByRole('link', { name: 'Postagem revisada pelo Playwright' })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Postagem revisada pelo Playwright', exact: true })).toHaveCount(0);
 });
 
 test('a rota de exclusão nunca apaga um registro ao ser acessada', async ({ page }) => {
   await page.goto('/#/excluir/101');
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.getByRole('dialog').getByRole('button', { name: 'Cancelar' }).click();
-  await expect(page.getByRole('heading', { name: 'Como organizar um calendário editorial' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Como organizar um calendário editorial', exact: true })).toBeVisible();
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Como organizar um calendário editorial' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Como organizar um calendário editorial', exact: true })).toBeVisible();
 });
 
 test('edição inválida informa erros e bloqueia saída com alterações pendentes', async ({ page }) => {
@@ -99,7 +99,7 @@ test('a página inicial não tem violações WCAG 2 A e AA graves ou críticas',
 test('zoom de 200% mantém controles utilizáveis no desktop', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === 'mobile', '200% em desktop equivale ao breakpoint responsivo');
   await page.goto('/');
-  await page.evaluate(() => { document.body.style.zoom = '200%'; });
+  await page.setViewportSize({ width: 682, height: 900 }); // Equivalente ao viewport CSS de um desktop a 200%.
   await expect(page.getByRole('heading', { name: 'Postagens', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Nova postagem' }).first()).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
@@ -112,5 +112,5 @@ test('diálogo de exclusão recebe foco e aceita Escape', async ({ page }) => {
   await expect(dialog.getByRole('button', { name: 'Cancelar' })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(dialog).not.toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Como organizar um calendário editorial' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Como organizar um calendário editorial', exact: true })).toBeVisible();
 });

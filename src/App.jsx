@@ -13,7 +13,7 @@ function Shell() {
     <div className="app-shell">
       <a className="skip-link" href="#conteudo">Ir para o conteúdo</a>
       <header className="topbar">
-        <Link className="brand" to="/" aria-label="PostFlow — início">
+        <Link className="brand" to="/">
           <span className="brand-mark" aria-hidden="true"><BookOpenText size={22} /></span>
           <span>Post<span className="brand-accent">Flow</span><small>CONTENT STUDIO</small></span>
         </Link>
