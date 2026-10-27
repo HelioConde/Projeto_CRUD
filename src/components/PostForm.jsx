@@ -3,12 +3,12 @@ import { Eye, Save } from 'lucide-react';
 
 const blank = { title:'', tags:'', status:'draft', youtube_link:'', primary_text:'', secondary_text:'', seo_title:'', seo_tags:'', published_at:'', featured_until:'' };
 export const emptyPost = () => ({ ...blank });
-export default function PostForm({ initial, onSubmit, saving, onCancel }) {
+export default function PostForm({ initial, onSubmit, saving, onCancel, onDirty }) {
   const [form, setForm] = useState(() => ({ ...blank, ...initial }));
   const [errors, setErrors] = useState({});
   const [preview, setPreview] = useState(false);
   const id = useId();
-  const set = (key, value) => { setForm((current) => ({ ...current, [key]: value })); setErrors((current) => ({ ...current, [key]: undefined })); };
+  const set = (key, value) => { onDirty?.(); setForm((current) => ({ ...current, [key]: value })); setErrors((current) => ({ ...current, [key]: undefined })); };
   function validate() {
     const next = {};
     if (!form.title.trim()) next.title = 'Informe um título para continuar.';
