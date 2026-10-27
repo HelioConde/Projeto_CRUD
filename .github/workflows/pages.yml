@@ -32,11 +32,6 @@ jobs:
         run: npm run build
         env:
           GITHUB_PAGES: 'true'
-      - name: Selecionar build de GitHub Actions como origem
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api -X PUT "repos/$GITHUB_REPOSITORY/pages" -f build_type=workflow
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
