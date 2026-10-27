@@ -95,3 +95,22 @@ test('a página inicial não tem violações WCAG 2 A e AA graves ou críticas',
   const audit = await new AxeBuilder({ page }).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
   expect(audit.violations.filter((item) => ['serious','critical'].includes(item.impact))).toEqual([]);
 });
+
+test('zoom de 200% mantém controles utilizáveis no desktop', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === 'mobile', '200% em desktop equivale ao breakpoint responsivo');
+  await page.goto('/');
+  await page.evaluate(() => { document.body.style.zoom = '200%'; });
+  await expect(page.getByRole('heading', { name: 'Postagens' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Nova postagem' }).first()).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1)).toBe(false);
+});
+
+test('diálogo de exclusão recebe foco e aceita Escape', async ({ page }) => {
+  await page.goto('/#/excluir/101');
+  const dialog = page.getByRole('dialog');
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole('button', { name: 'Cancelar' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(dialog).not.toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Como organizar um calendário editorial' })).toBeVisible();
+});
