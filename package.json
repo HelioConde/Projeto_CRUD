@@ -9,7 +9,9 @@
     "preview": "vite preview --host 127.0.0.1",
     "lint": "eslint .",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "test:visual": "playwright test tests/visual-audit.spec.js --project=chromium",
+    "qa:summary": "node scripts/qa-summary.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

@@ -11,7 +11,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -27,6 +27,9 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Testes end-to-end e acessibilidade
         run: npm run test:e2e
+      - name: Gerar relatório de screenshots, JavaScript e layout
+        if: always()
+        run: npm run qa:summary
       - name: Testar integração HTTP simulada
         run: npx playwright test tests/api.spec.js --output=test-results-api --reporter=list
         env:
