@@ -22,7 +22,7 @@ function Shell() {
           <NavLink to="/cadastro" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}><Plus size={17}/> Nova postagem</NavLink>
         </nav>
         <span className="mode-badge" title={isDemo ? 'Os dados ficam salvos apenas neste navegador' : 'Backend integrado'}>
-          <span className="mode-dot" />{isDemo ? 'Modo demonstração' : 'API conectada'}
+          <span className="mode-dot" /><span className="mode-label-full">{isDemo ? 'Modo demonstração' : 'API conectada'}</span><span className="mode-label-short">{isDemo ? 'Demo' : 'API'}</span>
         </span>
       </header>
       <main id="conteudo" className="main-container">

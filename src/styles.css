@@ -116,3 +116,23 @@ p{line-height:1.55}
   .pagination-buttons { font-size: .74rem; }
   .dialog-actions .btn { min-width: 110px; }
 }
+
+/* Refinamentos validados nas fotografias reais do GitHub Pages */
+.mode-label-short { display: none; }
+.table-scroll-hint { display: none; }
+@media (max-width: 760px) {
+  .editor-aside { order: 0; } /* salvar depois dos campos no fluxo de leitura */
+  .table-scroll-hint {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin: 0; padding: 10px 16px;
+    background: #f0f5ff; border-top: 1px solid #e1e8f7;
+    color: #405c91; font-size: .76rem; font-weight: 600;
+  }
+  .table-scroll-hint span { font-size: 1rem; }
+}
+@media (max-width: 385px) {
+  .mode-badge { font-size: .69rem; padding: 7px 9px; gap: 6px; }
+  .mode-dot { width: 7px; height: 7px; }
+  .mode-label-full { display: none; }
+  .mode-label-short { display: inline; }
+}
