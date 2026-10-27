@@ -1,0 +1,43 @@
+name: Qualidade e testes
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependências
+        run: npm install --no-audit --no-fund
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+      - name: Instalar Chromium para Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Testes end-to-end e acessibilidade
+        run: npm run test:e2e
+      - name: Testar integração HTTP simulada
+        run: npx playwright test tests/api.spec.js --output=test-results-api --reporter=list
+        env:
+          VITE_API_BASE_URL: /api
+      - name: Guardar relatórios e screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-playwright
+          path: |
+            playwright-report/
+            test-results/
+            test-results-api/
+          retention-days: 14
