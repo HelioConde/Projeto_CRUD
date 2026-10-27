@@ -96,7 +96,7 @@ p{line-height:1.55}
 .toast{position:fixed;z-index:30;bottom:25px;right:24px;max-width:min(430px,calc(100vw - 40px));background:#21304b;color:#fff;border-radius:11px;padding:13px 14px 13px 19px;box-shadow:0 12px 35px rgba(0,0,0,.15);display:flex;align-items:center;gap:18px;font-size:.86rem}.toast-error{background:#a72f3f}.icon-button{color:inherit;background:transparent;border:0;display:grid;place-items:center;padding:5px}
 .site-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px clamp(16px,4.5vw,76px);color:#5a6982;font-size:.73rem}.site-footer span{display:flex;align-items:center;gap:7px}
 .empty-page{min-height:50vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;color:#5b6980}.empty-page h1{color:#283651;margin:0}.empty-page p{margin:0}
-@media(min-width:1050px) and (min-height:730px){.dashboard-page{display:flex;flex-direction:column;min-height:0}.list-panel{display:flex;flex-direction:column;max-height:calc(100dvh - 380px);min-height:330px}.table-scroll{overflow:auto;min-height:0;flex:1}}
+
 @media(max-width:1050px){.topbar{gap:24px}.list-panel-head{flex-wrap:wrap}.editor-grid{grid-template-columns:minmax(0,1fr) 240px}.details-grid{grid-template-columns:minmax(0,1fr) 260px}.post-table td,.post-table th{padding-left:16px;padding-right:16px}}
 @media(max-width:760px){.topbar{height:auto;min-height:68px;padding:12px 17px;flex-wrap:wrap;gap:10px}.nav-links{order:3;width:100%;gap:5px}.nav-link{padding:9px;font-size:.8rem}.mode-badge{margin-left:auto;font-size:.68rem;padding:7px 9px}.main-container{padding:25px 16px 35px}.page-heading{align-items:flex-start;flex-wrap:wrap}.new-button{width:100%}.stats-grid{gap:9px}.stat-card{padding:14px 11px;gap:9px;flex-direction:column;align-items:flex-start}.stat-icon{height:37px;width:37px;border-radius:9px}.stat-label{font-size:.68rem;white-space:normal}.stat-card strong{font-size:1.25rem}.list-panel-head,.toolbar{padding-left:17px;padding-right:17px}.toolbar{flex-direction:column;align-items:stretch}.search-field{width:100%}.toolbar-filters{width:100%}.toolbar-filters>select,.sort-select{flex:1;min-width:0}.sort-select select{width:100%}.list-head-actions{gap:7px}.list-head-actions .btn{padding:9px;font-size:.76rem}.pagination{padding:16px;flex-wrap:wrap}.editor-grid,.details-grid{grid-template-columns:1fr}.editor-aside{position:static;order:-1}.form-panel,.details-content,.details-side{padding:20px}.editor-heading{align-items:flex-start}.detail-heading-actions{width:100%;flex-wrap:wrap}.site-footer{flex-direction:column;align-items:flex-start;padding:12px 16px 20px}}
 @media(max-width:385px){.mode-badge{font-size:0;gap:0}.mode-dot{width:10px;height:10px}.nav-link{font-size:.75rem}.stat-card{gap:7px}.stat-label{font-size:.64rem}}
@@ -135,4 +135,87 @@ p{line-height:1.55}
   .mode-dot { width: 7px; height: 7px; }
   .mode-label-full { display: none; }
   .mode-label-short { display: inline; }
+}
+
+/*
+ * Dashboard desktop em uma tela:
+ * O viewport CSS é menor que a resolução do monitor por causa da barra do
+ * navegador e da barra de tarefas. Por isso não depender de min-height:730px.
+ * Em zoom alto e mobile usamos o fluxo natural da página para acessibilidade.
+ */
+@media (min-width: 900px) and (min-height: 540px) {
+  .dashboard-shell {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .dashboard-shell .topbar { flex: 0 0 60px; height: 60px; }
+  .dashboard-shell .site-footer {
+    flex: 0 0 auto;
+    min-height: 30px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+  .dashboard-shell .main-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    padding-top: 13px;
+    padding-bottom: 10px;
+  }
+  .dashboard-shell .dashboard-page {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .dashboard-shell .page-heading { flex: none; margin-bottom: 13px; }
+  .dashboard-shell .page-heading h1 {
+    font-size: 1.65rem;
+    margin-bottom: 3px;
+  }
+  .dashboard-shell .page-heading p { font-size: .83rem; }
+  .dashboard-shell .eyebrow { margin-bottom: 5px; }
+  .dashboard-shell .stats-grid { flex: none; gap: 12px; margin-bottom: 12px; }
+  .dashboard-shell .stat-card { min-height: 62px; padding: 10px 15px; gap: 12px; }
+  .dashboard-shell .stat-icon { width: 40px; height: 40px; border-radius: 10px; }
+  .dashboard-shell .stat-card strong { font-size: 1.33rem; }
+  .dashboard-shell .list-panel {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .dashboard-shell .list-panel-head { flex: none; padding: 11px 18px 9px; }
+  .dashboard-shell .list-panel-head h2 { margin-bottom: 1px; }
+  .dashboard-shell .toolbar { flex: none; padding: 0 18px 10px; }
+  .dashboard-shell .search-field,
+  .dashboard-shell .toolbar select { height: 38px; }
+  .dashboard-shell .list-panel-head .btn { min-height: 36px; padding: 8px 12px; }
+  .dashboard-shell .table-scroll {
+    display: block;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+  .dashboard-shell .post-table th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+  .dashboard-shell .post-table td { padding-top: 10px; padding-bottom: 10px; }
+  .dashboard-shell .table-message { flex: 1 1 auto; min-height: 0; padding: 14px 20px; }
+  .dashboard-shell .pagination {
+    flex: none;
+    padding: 8px 18px;
+    min-height: 46px;
+    background: var(--card);
+  }
 }
